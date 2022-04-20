@@ -16,6 +16,11 @@ describe('Requisito 7', () => {
     const pokemonName = screen.getByTestId('pokemon-name');
     const detailsPokemon = screen.getByText(`${pokemonName.innerHTML} Details`);
     expect(detailsPokemon).toBeInTheDocument();
+
+    const nullDetailLink = screen.queryByRole('link', {
+      name: moreDetails,
+    });
+    expect(nullDetailLink).toBeNull();
   });
   it(' Teste se há um heading h2 com o texto Summary.', () => {
     renderWithRouter(<App />);
@@ -55,19 +60,7 @@ describe('Requisito 7', () => {
 
     const pokemonMap = screen.getAllByAltText(`${pokemonName.innerHTML} location`);
     expect(pokemonMap).toHaveLength(2);
-
-    // const pokemonFirstRegion = screen.getByRole('img', {
-    //   src: 'https://cdn2.bulbagarden.net/upload/0/08/Kanto_Route_2_Map.png',
-    //   alt: `${pokemonName.innerHTML} location`,
-    // });
-    // const pokemonSecondRegion = screen.getByRole('img', {
-    //   src: 'https://cdn2.bulbagarden.net/upload/b/bd/Kanto_Celadon_City_Map.png',
-    //   alt: `${pokemonName.innerHTML} location`,
-    // });
-    // expect(pokemonFirstRegion).toBeInTheDocument();
-    // expect(pokemonFirstRegion).toHaveAttribute('src', 'https://cdn2.bulbagarden.net/upload/0/08/Kanto_Route_2_Map.png');
-    // expect(pokemonSecondRegion).toBeInTheDocument();
-    // expect(pokemonSecondRegion).toHaveAttribute('src', 'https://cdn2.bulbagarden.net/upload/b/bd/Kanto_Celadon_City_Map.png');
+    expect(pokemonMap[0]).toHaveAttribute('src', 'https://cdn2.bulbagarden.net/upload/0/08/Kanto_Route_2_Map.png');
   });
   it('Testa se o usuário pode favoritar um pokémon através da página de detalhes', () => {
     renderWithRouter(<App />);
